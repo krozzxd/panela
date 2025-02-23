@@ -1,4 +1,4 @@
-[build]
+build]
 builder = "nixpacks"
 buildCommand = "cd PanelaControl/PanelaControl && npm install && npm run build"
 
@@ -42,8 +42,8 @@ NODE_ENV=production node dist/index.js
 """
 healthcheckPath = "/"
 healthcheckTimeout = 100
-restartPolicyType = "on-failure"
-restartPolicyMaxRetries = 5
+restartPolicy = "on-failure"
+maxRestarts = 5
 
 [variables]
 NODE_ENV = "production"
