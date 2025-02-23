@@ -1,4 +1,4 @@
-build]
+[build]
 builder = "nixpacks"
 buildCommand = "cd PanelaControl/PanelaControl && npm install && npm run build"
 
