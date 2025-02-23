@@ -3,43 +3,7 @@ builder = "nixpacks"
 buildCommand = "cd PanelaControl/PanelaControl && npm install && npm run build"
 
 [deploy]
-startCommand = """
-cd PanelaControl/PanelaControl
-
-echo "Verificando variáveis de ambiente..."
-if [ -z "$DISCORD_TOKEN" ]; then
-  echo "DISCORD_TOKEN não está configurado!"
-  exit 1
-fi
-if [ -z "$DATABASE_URL" ]; then
-  echo "DATABASE_URL não está configurado!"
-  exit 1
-fi
-
-echo "Executando migrações..."
-# Tentar executar a migração até 3 vezes
-max_attempts=3
-attempt=1
-
-while [ $attempt -le $max_attempts ]; do
-  echo "Tentativa $attempt de $max_attempts"
-  if npm run migrate; then
-    echo "Migração concluída com sucesso!"
-    break
-  else
-    if [ $attempt -eq $max_attempts ]; then
-      echo "Falha na migração do banco de dados após $max_attempts tentativas"
-      exit 1
-    fi
-    echo "Falha na tentativa $attempt. Aguardando 5 segundos antes de tentar novamente..."
-    sleep 5
-    attempt=$((attempt + 1))
-  fi
-done
-
-echo "Iniciando o bot..."
-NODE_ENV=production node dist/index.js
-"""
+startCommand = "cd PanelaControl/PanelaControl && npm run migrate && node dist/index.js"
 healthcheckPath = "/"
 healthcheckTimeout = 100
 restartPolicy = "on-failure"
