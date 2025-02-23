@@ -9,6 +9,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Rota de healthcheck
+app.get('/', (_req, res) => {
+  res.json({ status: 'ok' });
+});
+
 // Middleware de log
 app.use((req, res, next) => {
   const start = Date.now();

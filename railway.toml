@@ -5,7 +5,7 @@ buildCommand = "cd PanelaControl/PanelaControl && npm install && npm run build"
 [deploy]
 startCommand = "cd PanelaControl/PanelaControl && npm run migrate && node dist/index.js"
 healthcheckPath = "/"
-healthcheckTimeout = 100
+healthcheckTimeout = 300
 restartPolicy = "on-failure"
 maxRestarts = 5
 
